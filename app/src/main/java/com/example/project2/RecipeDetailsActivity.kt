@@ -1,41 +1,42 @@
 package com.example.project2
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.project2.Recipe
-import com.example.project2.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.json.JSONObject
+import org.json.JSONArray
+
 
 class RecipeDetailsActivity : AppCompatActivity() {
 
     private lateinit var recipeTitleTextView: TextView
-    private lateinit var ingredientsTextView: TextView
+    private lateinit var instructionsTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_details)
 
         recipeTitleTextView = findViewById(R.id.recipeTitleTextView)
-        ingredientsTextView = findViewById(R.id.ingredientsTextView)
+        instructionsTextView = findViewById(R.id.instructionsTextView)
 
         val recipe = intent.getSerializableExtra("recipe") as? Recipe
 
         recipe?.let {
             recipeTitleTextView.text = it.title
-            fetchRecipeDetails(it.id)
+            fetchAnalyzedRecipeInstructions(it.id)
         }
     }
 
-    private fun fetchRecipeDetails(recipeId: Int) {
+    private fun fetchAnalyzedRecipeInstructions(recipeId: Int) {
         val apiKey = "a99b580ce71041ae8fa0be722da7c276"
-        val url = "https://api.spoonacular.com/recipes/$recipeId/information?includeNutrition=true&apiKey=$apiKey"
+        val url =
+            "https://api.spoonacular.com/recipes/$recipeId/analyzedInstructions?apiKey=$apiKey"
         val client = OkHttpClient()
         val request = Request.Builder()
             .url(url)
@@ -45,52 +46,39 @@ class RecipeDetailsActivity : AppCompatActivity() {
             try {
                 val response = client.newCall(request).execute()
                 val responseData = response.body?.string()
-                val details = parseJsonResponse(responseData)
+                println("JSON Response: $responseData")
+                val instructions = parseAnalyzedInstructionsResponse(responseData)
                 withContext(Dispatchers.Main) {
-                    displayRecipeDetails(details)
+                    displayRecipeInstructions(instructions)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
                 withContext(Dispatchers.Main) {
-                    // Handle error
+                    Log.e("RecipeDetailsActivity", "Error fetching recipe details", e)
                 }
             }
         }
     }
 
-    private fun parseJsonResponse(jsonData: String?): RecipeDetails {
-        val ingredients = mutableListOf<String>()
-        val nutrition = mutableMapOf<String, String>()
+    private fun parseAnalyzedInstructionsResponse(jsonData: String?): List<String> {
+        val instructions = mutableListOf<String>()
 
         jsonData?.let { jsonString ->
-            val jsonObject = JSONObject(jsonString)
-
-            // Extract ingredients
-            val ingredientsArray = jsonObject.getJSONArray("extendedIngredients")
-            for (i in 0 until ingredientsArray.length()) {
-                val ingredientObject = ingredientsArray.getJSONObject(i)
-                val ingredientName = ingredientObject.getString("name")
-                ingredients.add(ingredientName)
-            }
-
-            // Extract nutrition data if available
-            val nutritionObject = jsonObject.optJSONObject("nutrition")
-            nutritionObject?.let {
-                // Assuming nutrition data is represented as key-value pairs in the JSON
-                // Adjust the keys as per the actual JSON structure
-                nutrition["Calories"] = it.getString("calories")
-                nutrition["Protein"] = it.getString("protein")
-
+            val jsonArray = JSONArray(jsonString)
+            for (i in 0 until jsonArray.length()) {
+                val stepObject = jsonArray.getJSONObject(i)
+                val step = stepObject.getString("step")
+                instructions.add(step)
+                Log.d("Parsing", "Step $i: $step")
             }
         }
 
-        return RecipeDetails(ingredients, nutrition)
+        return instructions
     }
 
-
-    private fun displayRecipeDetails(details: RecipeDetails) {
-        // Display recipe details in the UI
-        val ingredientsText = details.ingredients.joinToString(separator = "\n")
-        ingredientsTextView.text = ingredientsText
+    private fun displayRecipeInstructions(instructions: List<String>) {
+        // Display recipe instructions in the UI
+        val instructionsText = instructions.joinToString(separator = "\n")
+        instructionsTextView.text = instructionsText
     }
 }
