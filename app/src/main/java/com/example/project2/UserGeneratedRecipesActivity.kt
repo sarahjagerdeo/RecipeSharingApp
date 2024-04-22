@@ -15,7 +15,7 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_generated_recipes)
 
-        database = FirebaseDatabase.getInstance().reference.child("userGeneratedRecipes")
+        database = FirebaseDatabase.getInstance().reference.child("recipes")
 
         val recyclerView = findViewById<RecyclerView>(R.id.userGeneratedRecipesRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -31,9 +31,16 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userGeneratedRecipes = mutableListOf<UserGeneratedRecipe>()
                 for (snapshot in dataSnapshot.children) {
-                    val userGeneratedRecipe = snapshot.getValue(UserGeneratedRecipe::class.java)
-                    if (userGeneratedRecipe != null) {
-                        userGeneratedRecipes.add(userGeneratedRecipe)
+                    val data = snapshot.value
+                    if (data is Map<*, *>) {
+                        val expectedKeys = setOf("ingredients", "instructions", "tags", "title")
+                        val hasAllKeys = expectedKeys.all { key -> data.containsKey(key) && data[key] is String }
+                        if (hasAllKeys) {
+                            val userGeneratedRecipe = snapshot.getValue(UserGeneratedRecipe::class.java)
+                            if (userGeneratedRecipe != null) {
+                                userGeneratedRecipes.add(userGeneratedRecipe)
+                            }
+                        }
                     }
                 }
                 userGeneratedRecipeAdapter.setUserGeneratedRecipes(userGeneratedRecipes)
@@ -41,8 +48,8 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Handle possible errors here
-                // Example: Log the error or show a toast message
             }
         })
     }
+
 }

@@ -66,15 +66,31 @@ class RecipeDetailsActivity : AppCompatActivity() {
         jsonData?.let { jsonString ->
             val jsonArray = JSONArray(jsonString)
             for (i in 0 until jsonArray.length()) {
-                val stepObject = jsonArray.getJSONObject(i)
-                val step = stepObject.getString("step")
-                instructions.add(step)
-                Log.d("Parsing", "Step $i: $step")
+                val instructionObject = jsonArray.getJSONObject(i)
+
+                // Ensure there's a 'steps' array
+                if (instructionObject.has("steps")) {
+                    val stepsArray = instructionObject.getJSONArray("steps")
+
+                    for (j in 0 until stepsArray.length()) {
+                        val stepObject = stepsArray.getJSONObject(j)
+
+                        if (stepObject.has("step")) {
+                            val step = stepObject.getString("step")
+                            instructions.add(step)
+                            Log.d("Parsing", "Step $j: $step")
+                        } else {
+                            Log.w("Parsing", "Missing 'step' at index $j")
+                        }
+                    }
+                } else {
+                    Log.w("Parsing", "Missing 'steps' array at index $i")
+                }
             }
         }
-
         return instructions
     }
+
 
     private fun displayRecipeInstructions(instructions: List<String>) {
         // Display recipe instructions in the UI

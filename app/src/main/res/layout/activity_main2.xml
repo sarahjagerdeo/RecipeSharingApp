@@ -1,4 +1,5 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/homeLayout"
     android:layout_width="match_parent"
@@ -11,27 +12,42 @@
         android:id="@+id/recipeFeedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="Recipe Feed"
-        android:layout_centerInParent="true" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- New button for uploading a recipe -->
     <Button
         android:id="@+id/uploadRecipeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Upload Recipe"
-        android:layout_below="@id/recipeFeedButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recipeFeedButton" />
 
     <!-- Additional button to view uploaded recipes -->
     <Button
         android:id="@+id/viewUploadedRecipesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="View Uploaded Recipes"
-        android:layout_below="@id/uploadRecipeButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uploadRecipeButton" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="362dp"
+        android:layout_height="271dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/food" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
