@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/homeLayout"
@@ -9,11 +6,32 @@
     android:padding="16dp"
     tools:context=".MainActivity2">
 
+    <!-- Existing button for recipe feed -->
     <Button
         android:id="@+id/recipeFeedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Recipe Feed"
         android:layout_centerInParent="true" />
+
+    <!-- New button for uploading a recipe -->
+    <Button
+        android:id="@+id/uploadRecipeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Recipe"
+        android:layout_below="@id/recipeFeedButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <!-- Additional button to view uploaded recipes -->
+    <Button
+        android:id="@+id/viewUploadedRecipesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Uploaded Recipes"
+        android:layout_below="@id/uploadRecipeButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 
 </RelativeLayout>

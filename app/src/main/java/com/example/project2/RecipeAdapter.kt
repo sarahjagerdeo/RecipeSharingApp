@@ -1,5 +1,6 @@
 package com.example.project2
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,16 @@ import android.widget.ImageView
 import android.widget.RatingBar
 //import kotlinx.android.synthetic.main.item_recipe.view.*
 
-class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.ClickableRecipeViewHolder>() {
 
     private var recipes = listOf<Recipe>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClickableRecipeViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
-        return RecipeViewHolder(view)
+        return ClickableRecipeViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ClickableRecipeViewHolder, position: Int) {
         val recipe = recipes[position]
         holder.bind(recipe)
     }
@@ -33,9 +34,10 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ClickableRecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val titleTextView: TextView = itemView.findViewById(R.id.recipeTitleTextView)
-        private val descriptionTextView: TextView = itemView.findViewById(R.id.recipeDescriptionTextView)
+        private val descriptionTextView: TextView =
+            itemView.findViewById(R.id.recipeDescriptionTextView)
         private val ratingBar: RatingBar = itemView.findViewById(R.id.recipeRatingBar)
         private val imageView: ImageView = itemView.findViewById(R.id.recipeImageView)
 
@@ -49,6 +51,17 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
                 .placeholder(R.drawable.placeholder_image)
                 .into(imageView)
         }
-    }
 
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val recipe = recipes[position]
+                    val intent = Intent(itemView.context, RecipeDetailsActivity::class.java)
+                    intent.putExtra("recipe", recipe)
+                    itemView.context.startActivity(intent)
+                }
+            }
+        }
+    }
 }

@@ -78,14 +78,16 @@ class RecipeFeedActivity : AppCompatActivity() {
     private fun parseJsonResponse(jsonData: String?): List<Recipe> {
         val recipes = mutableListOf<Recipe>()
 
-        jsonData?.let {
-            val jsonObject = JSONObject(it)
+        jsonData?.let { jsonString ->
+            val jsonObject = JSONObject(jsonString)
             val resultsArray = jsonObject.getJSONArray("results")
             for (i in 0 until resultsArray.length()) {
                 val recipeObject = resultsArray.getJSONObject(i)
+                val id = recipeObject.getInt("id") // Retrieve id as an integer
                 val title = recipeObject.getString("title")
                 val imageUrl = recipeObject.getString("image")
-                val recipe = Recipe(title, imageUrl, "", 0.0f)
+                val rating = recipeObject.optDouble("rating", 0.0).toFloat() // Assuming rating is a float in JSON
+                val recipe = Recipe(id, title, imageUrl, "", rating)
                 recipes.add(recipe)
             }
         }
