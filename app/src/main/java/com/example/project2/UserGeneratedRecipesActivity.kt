@@ -1,5 +1,6 @@
 package com.example.project2
 
+import UserGeneratedRecipeAdapter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,23 +32,17 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userGeneratedRecipes = mutableListOf<UserGeneratedRecipe>()
                 for (snapshot in dataSnapshot.children) {
-                    val data = snapshot.value
-                    if (data is Map<*, *>) {
-                        val expectedKeys = setOf("ingredients", "instructions", "title")
-                        val hasAllKeys = expectedKeys.all { key -> data.containsKey(key) && data[key] is String }
-                        if (hasAllKeys) {
-                            val userGeneratedRecipe = snapshot.getValue(UserGeneratedRecipe::class.java)
-                            if (userGeneratedRecipe != null) {
-                                userGeneratedRecipes.add(userGeneratedRecipe)
-                            }
-                        }
+                    val userGeneratedRecipe = snapshot.getValue(UserGeneratedRecipe::class.java)
+                    if (userGeneratedRecipe != null) {
+                        userGeneratedRecipe.id = snapshot.key.toString()
+                        userGeneratedRecipes.add(userGeneratedRecipe)
                     }
                 }
                 userGeneratedRecipeAdapter.setUserGeneratedRecipes(userGeneratedRecipes)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-
+                // Handle error
             }
         })
     }

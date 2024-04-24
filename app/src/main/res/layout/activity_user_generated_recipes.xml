@@ -9,7 +9,6 @@
     android:background="?android:attr/colorBackground"
     tools:context=".UserGeneratedRecipesActivity">
 
-
     <TextView
         android:id="@+id/activityTitleTextView"
         android:layout_width="wrap_content"
@@ -21,7 +20,6 @@
         android:layout_marginBottom="16dp"
         android:textColor="?android:attr/textColorPrimary"/>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userGeneratedRecipesRecyclerView"
         android:layout_width="match_parent"
@@ -30,5 +28,6 @@
         android:clipToPadding="false"
         android:layout_marginBottom="16dp"
         android:padding="8dp" />
-</LinearLayout>
 
+
+</LinearLayout>

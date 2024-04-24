@@ -6,6 +6,7 @@ import java.io.Serializable
 
 @IgnoreExtraProperties
 data class UserGeneratedRecipe(
+    var id: String = "",
     var ingredients: String = "",
     var instructions: String = "",
     var tags: String = "",
