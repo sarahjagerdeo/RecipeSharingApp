@@ -23,7 +23,7 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
         userGeneratedRecipeAdapter = UserGeneratedRecipeAdapter()
         recyclerView.adapter = userGeneratedRecipeAdapter
 
-        fetchUserGeneratedRecipes() // Fetch user-generated recipes from Firebase
+        fetchUserGeneratedRecipes()
     }
 
     private fun fetchUserGeneratedRecipes() {
@@ -33,7 +33,7 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
                 for (snapshot in dataSnapshot.children) {
                     val data = snapshot.value
                     if (data is Map<*, *>) {
-                        val expectedKeys = setOf("ingredients", "instructions", "tags", "title")
+                        val expectedKeys = setOf("ingredients", "instructions", "title")
                         val hasAllKeys = expectedKeys.all { key -> data.containsKey(key) && data[key] is String }
                         if (hasAllKeys) {
                             val userGeneratedRecipe = snapshot.getValue(UserGeneratedRecipe::class.java)
@@ -47,7 +47,7 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Handle possible errors here
+
             }
         })
     }

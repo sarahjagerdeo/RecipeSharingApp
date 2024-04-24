@@ -33,7 +33,7 @@ class RecipeFeedActivity : AppCompatActivity() {
         adapter = RecipeAdapter()
         recipeRecyclerView.layoutManager = LinearLayoutManager(this)
         recipeRecyclerView.adapter = adapter
-        val queries = listOf("Pasta", "Rice", "Pizza", "Salad") // Add more options as needed
+        val queries = listOf("Pasta", "Rice", "Pizza", "Salad", "Chicken", "Fish", "Steak", "Tofu", "Sugar", "Flour")
         val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, queries)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         querySpinner.adapter = spinnerAdapter
@@ -83,10 +83,10 @@ class RecipeFeedActivity : AppCompatActivity() {
             val resultsArray = jsonObject.getJSONArray("results")
             for (i in 0 until resultsArray.length()) {
                 val recipeObject = resultsArray.getJSONObject(i)
-                val id = recipeObject.getInt("id") // Retrieve id as an integer
+                val id = recipeObject.getInt("id")
                 val title = recipeObject.getString("title")
                 val imageUrl = recipeObject.getString("image")
-                val rating = recipeObject.optDouble("rating", 0.0).toFloat() // Assuming rating is a float in JSON
+                val rating = recipeObject.optDouble("rating", 0.0).toFloat()
                 val recipe = Recipe(id, title, imageUrl, "", rating)
                 recipes.add(recipe)
             }

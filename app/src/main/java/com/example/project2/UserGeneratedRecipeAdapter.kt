@@ -33,10 +33,12 @@ class UserGeneratedRecipeAdapter : RecyclerView.Adapter<UserGeneratedRecipeAdapt
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val titleTextView: TextView = itemView.findViewById(R.id.userGeneratedRecipeTitleTextView)
         private val ingredientsTextView: TextView = itemView.findViewById(R.id.userGeneratedRecipeIngredientsTextView)
+        private val instructionsTextView: TextView = itemView.findViewById(R.id.userGeneratedRecipeInstructionsTextView)
 
         fun bind(userGeneratedRecipe: UserGeneratedRecipe) {
             titleTextView.text = userGeneratedRecipe.title
             ingredientsTextView.text = userGeneratedRecipe.ingredients
+            instructionsTextView.text = userGeneratedRecipe.instructions
         }
 
         init {
@@ -51,4 +53,5 @@ class UserGeneratedRecipeAdapter : RecyclerView.Adapter<UserGeneratedRecipeAdapt
             }
         }
     }
+
 }

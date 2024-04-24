@@ -19,29 +19,27 @@ class AddRecipeActivity : AppCompatActivity() {
         val titleField = findViewById<EditText>(R.id.editTextTitle)
         val ingredientsField = findViewById<EditText>(R.id.editTextIngredients)
         val instructionsField = findViewById<EditText>(R.id.editTextInstructions)
-        val tagsField = findViewById<EditText>(R.id.editTextTags)
+
 
         findViewById<Button>(R.id.buttonSubmitRecipe).setOnClickListener {
             val title = titleField.text.toString().trim()
             val ingredients = ingredientsField.text.toString().trim()
             val instructions = instructionsField.text.toString().trim()
-            val tags = tagsField.text.toString().trim()
 
             if (title.isEmpty() || ingredients.isEmpty() || instructions.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            submitRecipe(title, ingredients, instructions, tags)
+            submitRecipe(title, ingredients, instructions)
         }
     }
 
-    private fun submitRecipe(title: String, ingredients: String, instructions: String, tags: String) {
+    private fun submitRecipe(title: String, ingredients: String, instructions: String) {
         val recipeData = hashMapOf(
             "title" to title,
             "ingredients" to ingredients,
             "instructions" to instructions,
-            "tags" to tags
         )
 
         database.push().setValue(recipeData).addOnCompleteListener { task ->

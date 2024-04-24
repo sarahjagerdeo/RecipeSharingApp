@@ -11,7 +11,7 @@ data class UserGeneratedRecipe(
     var tags: String = "",
     var title: String = ""
 ) : Serializable {
-    // No-argument constructor
+
     constructor() : this("", "", "", "")
 }
 
