@@ -31,12 +31,6 @@
         android:text="Instructions"
         android:textSize="14sp" />
 
-    <!-- Tags -->
-    <TextView
-        android:id="@+id/userGeneratedRecipeTagsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tags"
-        android:textSize="14sp" />
+
 
 </LinearLayout>

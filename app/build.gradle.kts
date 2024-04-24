@@ -45,7 +45,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation ("androidx.recyclerview:recyclerview:1.3.2")  // or the latest stable version
+    implementation ("androidx.recyclerview:recyclerview:1.3.2")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation("androidx.annotation:annotation:1.7.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")

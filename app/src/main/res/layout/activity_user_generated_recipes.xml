@@ -5,12 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?android:attr/colorBackground"
     tools:context=".UserGeneratedRecipesActivity">
 
-    <RecyclerView
+    <TextView
+        android:id="@+id/activityTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User-Generated Recipes"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:textColor="?android:attr/textColorPrimary"/>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userGeneratedRecipesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp" />
+        android:background="?android:attr/colorBackground"
+        android:clipToPadding="false"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp" />
+
 
 </LinearLayout>

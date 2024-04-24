@@ -1,5 +1,6 @@
 package com.example.project2
 
+import UserGeneratedRecipeAdapter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +16,7 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_generated_recipes)
 
-        database = FirebaseDatabase.getInstance().reference.child("userGeneratedRecipes")
+        database = FirebaseDatabase.getInstance().reference.child("recipes")
 
         val recyclerView = findViewById<RecyclerView>(R.id.userGeneratedRecipesRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -23,7 +24,7 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
         userGeneratedRecipeAdapter = UserGeneratedRecipeAdapter()
         recyclerView.adapter = userGeneratedRecipeAdapter
 
-        fetchUserGeneratedRecipes() // Fetch user-generated recipes from Firebase
+        fetchUserGeneratedRecipes()
     }
 
     private fun fetchUserGeneratedRecipes() {
@@ -33,6 +34,7 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
                 for (snapshot in dataSnapshot.children) {
                     val userGeneratedRecipe = snapshot.getValue(UserGeneratedRecipe::class.java)
                     if (userGeneratedRecipe != null) {
+                        userGeneratedRecipe.id = snapshot.key.toString()
                         userGeneratedRecipes.add(userGeneratedRecipe)
                     }
                 }
@@ -40,9 +42,9 @@ class UserGeneratedRecipesActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Handle possible errors here
-                // Example: Log the error or show a toast message
+                // Handle error
             }
         })
     }
+
 }

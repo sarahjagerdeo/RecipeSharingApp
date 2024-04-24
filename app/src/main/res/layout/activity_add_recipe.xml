@@ -4,41 +4,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?android:attr/colorBackground">
 
+    <!-- Recipe Title EditText -->
     <EditText
         android:id="@+id/editTextTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Recipe Title"
-        android:textSize="48sp" />
+        android:textSize="20sp"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="?android:attr/editTextBackground" />
 
+    <!-- Ingredients EditText -->
     <EditText
         android:id="@+id/editTextIngredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingredients (comma-separated)"
-        android:textSize="48sp" />
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="?android:attr/editTextBackground" />
 
+    <!-- Instructions EditText -->
     <EditText
         android:id="@+id/editTextInstructions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Instructions"
-        android:textSize="48sp" />
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="?android:attr/editTextBackground" />
 
-    <EditText
-        android:id="@+id/editTextTags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Tags (comma-separated)"
-        android:textSize="48sp" />
-
-
+    <!-- Submit Button -->
     <Button
         android:id="@+id/buttonSubmitRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit Recipe" />
-
+        android:text="Submit Recipe"
+        android:textSize="18sp"
+        android:backgroundTint="?android:attr/colorAccent"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
 </LinearLayout>
