@@ -1,6 +1,4 @@
-# Project2
-
-See Blackboard for details
+# Recipe Sharing App
 
 Instructions/Things to Know:
 
