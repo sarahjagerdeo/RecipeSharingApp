@@ -1,13 +1,18 @@
 # Recipe Sharing App
 
-Instructions/Things to Know:
+### Instructions & Important Information
 
-Sign up using the first screen 
-,You cannot use the same email twice
-,Password must be 8 characters
+1. **Technology Stack**
+   - The app is built using **Kotlin, Java, and XML**.
+   - It must be run on an **Android emulator**.
 
-An account that will work :
+2. **Sign-Up Process**
+   - Use the initial screen to sign up.
+   - Each email can only be used once to create an account.
+   - Passwords must be at least 8 characters long.
 
-Email : sarahjags@gmail.com
-Password: 122345678
+3. **Test Account**
+   - You can use the following credentials to log in:
+     - **Email:** sarahjags@gmail.com
+     - **Password:** 12345678
 
